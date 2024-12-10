@@ -20,28 +20,39 @@ public class TextUI {
         this.dictionary = dictionary;
     }
 
-    public void start() {
-        String word = "", translation = "", toTranslate = "", translated = "";
+    private void add() {
+        String word = "", translation = "";
 
+        System.out.println("Word:");
+        word = this.scanner.nextLine();
+        System.out.println("Translation:");
+        translation = this.scanner.nextLine();
+
+        this.dictionary.add(word, translation);
+    }
+
+    private void search() {
+        String toTranslate = "", translated = "";
+
+        System.out.println("To be translated:");
+        toTranslate = this.scanner.nextLine();
+        translated = this.dictionary.translate(toTranslate);
+
+        if (translated == null) {
+            System.out.println("Word " + toTranslate + " was not found");
+        } else {
+            System.out.println("Translation: " + translated);
+        }
+    }
+
+    public void start() {
         System.out.println("Command:");
         String command = this.scanner.nextLine();
         while (!command.equals("end")) {
             if (command.equals("add")) {
-                System.out.println("Word:");
-                word = this.scanner.nextLine();
-                System.out.println("Translation:");
-                translation = this.scanner.nextLine();
-
-                this.dictionary.add(word, translation);
+                this.add();
             } else if (command.equals("search")) {
-                System.out.println("To be translated:");
-                toTranslate = this.scanner.nextLine();
-                translated = this.dictionary.translate(toTranslate);
-                if (translated == null) {
-                    System.out.println("Word " + toTranslate + " was not found");
-                } else {
-                    System.out.println("Translation: " + translated);
-                }
+                this.search();
             } else {
                 System.out.println("Unknown command");
             }
